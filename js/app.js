@@ -31,11 +31,21 @@ const statusPrompt = {
   }
 }
 
+var url = window.location.href;
+var swLocation = "/homescreen/sw.js"
+
 window.onload = (e) => { 
 
   // Set serviceWorker
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then((registration) => {
+
+    if (url.includes('localhost')) {
+      swLocation = '/sw.js';
+    }
+
+    console.log(swLocation);
+    
+    navigator.serviceWorker.register( swLocation ).then((registration) => {
       // Registration was successful 😜
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, (err) => {
